@@ -16,6 +16,11 @@
            - curl
            - telnet
            - apt-transport-https
+           - mercurial 
+           - git 
+           - nagios3 
+           - munin 
+           - boinc 
 
 #     - name: Install Webmin keys
 #       apt_key: url='http://www.webmin.com/jcameron-key.asc' state=present
@@ -74,3 +79,21 @@
         with_items:
            - wireshark
            - chromium-browser
+           - dosbox 
+           - xchat 
+           - filezilla 
+           - gimp 
+           - gimp-data-extras 
+           - xsane 
+           - vlc 
+           - vlc-plugin-pulse 
+           - fbreader 
+           - calibre 
+           - qrencode 
+           - gitk 
+           - grsync 
+           - usb-creator-gtk
+           - gmtp
+           - etherape
+           - nmap
+           - nmapfe
