@@ -1,11 +1,10 @@
 - hosts: all
-  remote_user: ron 
+  remote_user: rkurr 
   sudo: yes 
-  gather_facts: yes
+  gather_facts: no
   tasks:
       - name: Upgrade currently installed packages
         apt: "upgrade=dist state=present update_cache=true cache_valid_time=600"
-
       - name: Install common packages
         apt: "name={{ item }} state=present update_cache=true cache_valid_time=600"
         with_items:
@@ -22,59 +21,38 @@
            - munin 
            - boinc 
 
-#     - name: Install Webmin keys
-#       apt_key: url='http://www.webmin.com/jcameron-key.asc' state=present
-#     - name: Install primary Webmin repository
-#       apt_repository: repo='deb http://download.webmin.com/download/repository sarge contrib' state=present 
-#     - name: Install secondary Webmin repository
-#       apt_repository: repo='deb http://webmin.mirror.somersettechsolutions.co.uk/repository sarge contrib' state=present 
-#     - name: Install Webmin software
-#       apt: name=webmin state=latest update_cache=true cache_valid_time=600
-
-      - name: Add touchpad to hosts file
-        shell: creates=/var/hosts-touchpad echo 192.168.1.150 touchpad | tee -a /etc/hosts ; touch /var/hosts-touchpad
-      - name: Add batcave to hosts file
-        shell: creates=/var/hosts-batcave echo 192.168.1.222 batcave | tee -a /etc/hosts ; touch /var/hosts-batcave
-      - name: Add stargate to hosts file
-        shell: creates=/var/hosts-stargate echo 192.168.1.227 stargate | tee -a /etc/hosts ; touch /var/hosts-stargate
-      - name: Add printer to hosts file
-        shell: creates=/var/hosts-printer echo 192.168.1.228 printer | tee -a /etc/hosts ; touch /var/hosts-printer
-      - name: Add atlantis to hosts file
-        shell: creates=/var/hosts-atlantis echo 192.168.1.229 atlantis | tee -a /etc/hosts ; touch /var/hosts-atlantis
-      - name: Add tivo to hosts file
-        shell: creates=/var/hosts-tivo echo 192.168.1.230 tivo | tee -a /etc/hosts ; touch /var/hosts-tivo
-      - name: Add glados to hosts file
-        shell: creates=/var/hosts-glados echo 192.168.1.231 glados | tee -a /etc/hosts ; touch /var/hosts-glados
-      - name: Add cortans to hosts file
-        shell: creates=/var/hosts-coranas echo 192.168.1.232 cortana | tee -a /etc/hosts ; touch /var/hosts-cortana
-      - name: Add docker to hosts file
-        shell: creates=/var/hosts-docker echo 192.168.1.233 docker | tee -a /etc/hosts ; touch /var/hosts-docker
-      - name: Add nas to hosts file
-        shell: creates=/var/hosts-nas echo 192.168.1.234 nas | tee -a /etc/hosts ; touch /var/hosts-nas
-      - name: Add pi to hosts file
-        shell: creates=/var/hosts-pi echo 192.168.1.235 pi | tee -a /etc/hosts ; touch /var/hosts-pi
-      - name: Add pi2 to hosts file
-        shell: creates=/var/hosts-pi2 echo 192.168.1.236 pi2 | tee -a /etc/hosts ; touch /var/hosts-pi2
-      - name: Add coreos to hosts file
-        shell: creates=/var/hosts-coreos echo 192.168.1.237 coreos | tee -a /etc/hosts ; touch /var/hosts-coreos
+#     - name: Add touchpad to hosts file
+#       shell: creates=/var/hosts-touchpad echo 192.168.1.150 touchpad | tee -a /etc/hosts ; touch /var/hosts-touchpad
+#     - name: Add batcave to hosts file
+#       shell: creates=/var/hosts-batcave echo 192.168.1.222 batcave | tee -a /etc/hosts ; touch /var/hosts-batcave
+#     - name: Add stargate to hosts file
+#       shell: creates=/var/hosts-stargate echo 192.168.1.227 stargate | tee -a /etc/hosts ; touch /var/hosts-stargate
+#     - name: Add printer to hosts file
+#       shell: creates=/var/hosts-printer echo 192.168.1.228 printer | tee -a /etc/hosts ; touch /var/hosts-printer
+#     - name: Add atlantis to hosts file
+#       shell: creates=/var/hosts-atlantis echo 192.168.1.229 atlantis | tee -a /etc/hosts ; touch /var/hosts-atlantis
+#     - name: Add tivo to hosts file
+#       shell: creates=/var/hosts-tivo echo 192.168.1.230 tivo | tee -a /etc/hosts ; touch /var/hosts-tivo
+#     - name: Add glados to hosts file
+#       shell: creates=/var/hosts-glados echo 192.168.1.231 glados | tee -a /etc/hosts ; touch /var/hosts-glados
+#     - name: Add cortans to hosts file
+#       shell: creates=/var/hosts-coranas echo 192.168.1.232 cortana | tee -a /etc/hosts ; touch /var/hosts-cortana
+#     - name: Add docker to hosts file
+#       shell: creates=/var/hosts-docker echo 192.168.1.233 docker | tee -a /etc/hosts ; touch /var/hosts-docker
+#     - name: Add nas to hosts file
+#       shell: creates=/var/hosts-nas echo 192.168.1.234 nas | tee -a /etc/hosts ; touch /var/hosts-nas
+#     - name: Add pi to hosts file
+#       shell: creates=/var/hosts-pi echo 192.168.1.235 pi | tee -a /etc/hosts ; touch /var/hosts-pi
+#     - name: Add pi2 to hosts file
+#       shell: creates=/var/hosts-pi2 echo 192.168.1.236 pi2 | tee -a /etc/hosts ; touch /var/hosts-pi2
+#     - name: Add coreos to hosts file
+#       shell: creates=/var/hosts-coreos echo 192.168.1.237 coreos | tee -a /etc/hosts ; touch /var/hosts-coreos
 
 - hosts: desktops
-  remote_user: ron 
+  remote_user: rkurr 
   sudo: yes 
-  gather_facts: yes
+  gather_facts: no
   tasks:
-      - name: Install WebUpd8 keys
-        apt_key: state=present keyserver=keyserver.ubuntu.com id=EEA14886
-      - name: Install WebUpd8 repository
-        apt_repository: repo='deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main' state=present
-      - name: Automatically select the Oracle License
-        shell: echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
-        changed_when: false
-      - name: Install Oracle JDK 8 
-        apt: name=oracle-java8-installer state=latest update_cache=true cache_valid_time=600
-      - name: Set Oracle JDK 8 environment variables
-        apt: name=oracle-java8-set-default state=latest update_cache=true cache_valid_time=600
-      - name: Install desktop packages
         apt: "name={{ item }} state=present update_cache=true cache_valid_time=600"
         with_items:
            - wireshark
@@ -97,3 +75,6 @@
            - etherape
            - nmap
            - nmapfe
+           - xubuntu-restricted-extras
+           - boinc 
+           - gnome-disk-utility 
