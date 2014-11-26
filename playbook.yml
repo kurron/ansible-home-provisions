@@ -53,6 +53,7 @@
   sudo: yes 
   gather_facts: no
   tasks:
+      - name: Install packages from official repository 
         apt: "name={{ item }} state=present update_cache=true cache_valid_time=600"
         with_items:
            - wireshark
@@ -77,12 +78,12 @@
            - nmapfe
            - xubuntu-restricted-extras
            - boinc 
-           - gnome-disk-utility 
+           - gnome-disk-utility
 
-      - name: Install Handbrake PPA 
+      - name: Install Handbrake PPA
         apt_repository: repo='ppa:stebbins/handbrake-releases' state=present
-      - name: Install Handbrake CLI 
+      - name: Install Handbrake CLI
         apt: name=handbrake-cli state=latest update_cache=true cache_valid_time=600
-      - name: Install Handbrake GUI 
+      - name: Install Handbrake GUI
         apt: name=handbrake-gtk state=latest update_cache=true cache_valid_time=600
 
